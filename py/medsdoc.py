@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import io
+import sys
 import logging
 import xml.dom.minidom as minidom    # for pretty-printing
 import xml.etree.ElementTree as ET   # for parsing and element creation
@@ -26,8 +27,13 @@ class MedsDoc:
 		:param filepath: The path of the output file; will be overwritten
 		"""
 		print("-->  Parsing tree...")
-		tree = ET.parse(self.filepath)
-		root = tree.getroot()
+		try:
+			tree = ET.parse(self.filepath)
+			root = tree.getroot()
+		except FileNotFoundError:
+			print("xx>  The file «{}» is missing, did you download the XML?"
+				.format(self.filepath))
+			sys.exit(1)
 		assert('medicalInformations' == root.tag)
 		
 		print("-->  Tree parsed, processing meds...")

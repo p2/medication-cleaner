@@ -55,6 +55,7 @@ class Medication(NodeObj):
 		# <content> is dirty HTML; unescape and clean it up
 		content_node = node.find('content')
 		if content_node is not None and content_node.text:
+			from . import medicationcontent
 			self.content = medicationcontent.MedicationContent(self, content_node)
 			
 			# update sections from data in HTML
@@ -155,5 +156,3 @@ class MedicationData(NodeObj):
 				sub.as_node(node)
 		
 		return node
-
-from . import medicationcontent

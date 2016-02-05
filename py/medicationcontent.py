@@ -6,7 +6,10 @@ import html
 import logging
 import xml.etree.ElementTree as ET
 
-from . import medication
+try:
+	from . import medication
+except ImportError:
+	import py.medication as medication
 
 class MedicationContent(medication.NodeObj):
 	def __init__(self, medi, node=None):
